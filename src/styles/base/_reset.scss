@@ -11,6 +11,10 @@ html {
   text-size-adjust: 100%;
 }
 
+svg {
+  pointer-events: none;
+  user-select: none;
+}
 body,
 h1,
 h2,

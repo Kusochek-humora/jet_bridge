@@ -12,7 +12,13 @@ $breakpoints: (
 $white: #fff;
 $black: #000;
 $orange-gradient: linear-gradient(90deg, #f97014 0%, #f9bc14 100%);
+$orange-gradient-hover: linear-gradient(90deg, #e05a00 0%, #e8a400 100%);
 $orange-simple: #F9BC14;
 $blue-title: #03467c;
+$blue-hover: #02345c;
+
+// fonts
+$font-main: "Involve", sans-serif;
+$font-second: "Montserrat", sans-serif;
 
 $transition: 0.3s all;

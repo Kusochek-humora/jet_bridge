@@ -1,4 +1,31 @@
-@use '@/styles/abstracts' as *;
+@use "@/styles/abstracts" as *;
 
 .burger-menu {
+    padding: 13px 10px; // 13 + 24 (иконка) + 13 = 50px, как в макете; целые px — чтобы svg не мылилась
+    border-radius: 20px;
+
+    max-width: 197px;
+    width: 100%;
+    gap: 0 10px;
+    span {
+        line-height: 150%;
+        letter-spacing: -0.022em;
+        font-weight: 600;
+    }
+
+    // ширина по содержимому, высота 8 + 24 + 8 = 40px (целые px — svg не мылится)
+    @include media("md") {
+        max-width: none;
+        width: auto;
+        padding: 8px 18px;
+        border-radius: 14px;
+    }
+    @include media("sm") {
+        padding: 8px 14px;
+        gap: 0 6px;
+
+        span {
+            font-size: 12px;
+        }
+    }
 }

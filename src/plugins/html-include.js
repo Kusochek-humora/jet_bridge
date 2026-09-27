@@ -5,6 +5,13 @@ import path from 'node:path';
 // Путь относительно корня проекта. Вложенные include поддерживаются.
 const INCLUDE_RE = /<include\s+src=["']([^"']+)["']\s*(?:\/>|>\s*<\/include>)/g;
 
+// <icon name="burger-menu" class="burger-menu__icon"></icon>
+// Вставляет inline-svg из src/assets/icons/<name>.svg.
+// class добавляется к "icon icon--<name>", остальные атрибуты переносятся на <svg>.
+const ICON_RE = /<icon\s+([^>]*?)\s*(?:\/>|>\s*<\/icon>)/g;
+const ATTR_RE = /([\w:-]+)=["']([^"']*)["']/g;
+const ICONS_DIR = 'src/assets/icons';
+
 function render(html, root, stack = []) {
   return html.replace(INCLUDE_RE, (_, src) => {
     const file = path.resolve(root, src);
@@ -20,6 +27,39 @@ function render(html, root, stack = []) {
   });
 }
 
+function renderIcons(html, root) {
+  return html.replace(ICON_RE, (_, rawAttrs) => {
+    const attrs = Object.fromEntries([...rawAttrs.matchAll(ATTR_RE)].map(([, k, v]) => [k, v]));
+    const { name, class: className = '', ...rest } = attrs;
+
+    if (!name) {
+      throw new Error(`[html-include] <icon> without name: <icon ${rawAttrs}>`);
+    }
+
+    const file = path.resolve(root, ICONS_DIR, `${name}.svg`);
+    if (!fs.existsSync(file)) {
+      throw new Error(`[html-include] icon not found: ${ICONS_DIR}/${name}.svg`);
+    }
+
+    const svgAttrs = {
+      class: ['icon', `icon--${name}`, className].filter(Boolean).join(' '),
+      'aria-hidden': 'true',
+      focusable: 'false',
+      ...rest,
+    };
+    const attrString = Object.entries(svgAttrs)
+      .map(([k, v]) => `${k}="${v}"`)
+      .join(' ');
+
+    return fs
+      .readFileSync(file, 'utf-8')
+      .replace(/<\?xml[\s\S]*?\?>/g, '')
+      .replace(/<!--[\s\S]*?-->/g, '')
+      .replace(/<svg\b/, `<svg ${attrString}`)
+      .trim();
+  });
+}
+
 export default function htmlInclude() {
   let root;
 
@@ -30,12 +70,12 @@ export default function htmlInclude() {
     },
     transformIndexHtml: {
       order: 'pre',
-      handler: (html) => render(html, root),
+      handler: (html) => renderIcons(render(html, root), root),
     },
     configureServer(server) {
-      // при правке html-партиала перезагружаем страницу
+      // при правке html-партиала или иконки перезагружаем страницу
       server.watcher.on('change', (file) => {
-        if (file.endsWith('.html')) server.ws.send({ type: 'full-reload' });
+        if (/\.(html|svg)$/.test(file)) server.ws.send({ type: 'full-reload' });
       });
     },
   };

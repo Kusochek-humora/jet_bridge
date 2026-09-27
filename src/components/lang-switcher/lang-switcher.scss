@@ -1,17 +1,28 @@
-@use '@/styles/abstracts' as *;
+@use "@/styles/abstracts" as *;
 
 .lang-switcher {
-  display: flex;
-  gap: 8px;
+  display: inline-flex;
+  margin-right: 20px;
 
+  button,
+  span {
+    line-height: 150%;
+  }
+
+  span {
+    display: block;
+    margin:0 4.5px ;
+    color: rgba($color: $white, $alpha: 1);
+  }
   &__btn {
-    padding: 4px 8px;
-    border-radius: 4px;
-    transition: color $transition, background-color $transition;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: rgba($color: $white, $alpha: 0.5);
+    @include transition-simple;
 
     &.is-active {
-      // color: #fff;
-      // background-color: $color-primary;
+      color: rgba($color: $white, $alpha: 1);
     }
   }
 }
+/* RU / kz */

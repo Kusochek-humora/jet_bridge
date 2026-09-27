@@ -1,0 +1,144 @@
+@use "@/styles/abstracts" as *;
+
+// плавный выход с мягким торможением
+$nav-ease: cubic-bezier(0.22, 1, 0.36, 1);
+$nav-duration: 0.45s;
+
+// Десктоп: «пилюля» со ссылками вторым этажом под строкой шапки, прижата вправо под кнопку.
+// position: absolute — не занимает место в ряду (в ряд с логотипом и кнопками не влезает уже на ~1100px).
+// Скрыто через opacity + visibility: не кликается и не попадает в Tab.
+.nav-menu {
+  position: absolute;
+  top: 100%;
+  right: 20px; // = padding .container — правый край совпадает с кнопкой «Меню»
+  padding: 3px 24px; // пункты 35px + 3 + 3 — высота «пилюли» ~41px, как в макете
+  background-color: $white;
+  border: 1px solid #fff1c6; // Stroke из Figma: 1px, Inside (box-sizing: border-box — тоже внутрь)
+  border-radius: 20px;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px); // выезжает сверху, из-под кнопки
+  transition:
+    opacity $nav-duration $nav-ease,
+    transform $nav-duration $nav-ease,
+    visibility 0s linear $nav-duration; // при закрытии прячем после анимации
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+      opacity $nav-duration $nav-ease,
+      transform $nav-duration $nav-ease,
+      visibility 0s; // при открытии показываем сразу
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  // Figma: Montserrat Medium 12, line-height Auto, letter-spacing -2%
+  &__link {
+    display: block;
+    padding: 10px; // Figma: пункт 96×35 Hug, текст 76×15 — отступ 10 со всех сторон, кликабельная зона больше текста
+    font-family: $font-second;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.02em;
+    color: $black;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+
+    position: relative;
+    &::before {
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 2px;
+      bottom: 5px;
+      left: 0;
+      z-index: 1;
+      background-color: $blue-title;
+      opacity: 0;
+      @include transition-simple;
+    }
+    // .active — пункт секции, которая сейчас на экране (ставит nav-menu.js)
+    &.active {
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    @include hover {
+      color: $blue-title;
+    }
+  }
+
+  // Планшеты и мобильные: меню на весь экран под шапкой, без оверлея.
+  // Выезжает сверху вниз.
+  @include media("lg") {
+    position: fixed;
+    inset: 0;
+    z-index: -1; // под логотипом и кнопками шапки, но над её фоном
+    margin: 0;
+    padding: 130px 20px 40px;
+    height: 100vh;
+    height: 100dvh; // учитывает панель браузера на телефонах
+    overflow-y: auto;
+    background-color: #6695ba; // как фон шапки при скролле: виден и логотип, и белый текст
+    border: none;
+    border-radius: 0;
+    top: 0;
+    right: 0;
+    transform: translateY(-100%);
+    opacity: 1;
+
+    &.is-open {
+      transform: translateY(0);
+    }
+
+    &__list {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    &__link {
+      font-size: fluid(22px, 28px);
+      font-weight: 500; // у Montserrat подключены 400 / 500 / 700 — 600 браузер подделал бы
+      color: $white;
+      text-transform: uppercase;
+      display: flex;
+
+      position: relative;
+      &::before {
+        display: none;
+      }
+      &.active {
+        color: $orange-simple;
+      }
+
+      @include hover {
+        color: $orange-simple;
+      }
+    }
+  }
+
+  @include media("md") {
+    padding-top: 110px;
+  }
+}
+
+// открытое меню на планшетах / мобильных
+@include media("lg") {
+  .is-menu-open {
+    overflow: hidden; // страница под меню не прокручивается
+  }
+}

@@ -4,6 +4,7 @@ import './styles/main.scss';
 import { initI18n } from './i18n';
 import { initLangSwitcher } from './components/lang-switcher/lang-switcher';
 import { initBurgerMenu } from './components/burger-menu/burger-menu';
+import { initNavMenu } from './components/nav-menu/nav-menu';
 
 import { initHeader } from './sections/header/header';
 import './sections/hero/hero';
@@ -20,5 +21,6 @@ import './sections/footer/footer';
 await initI18n();
 
 initLangSwitcher();
+initNavMenu();
 initBurgerMenu();
 initHeader();

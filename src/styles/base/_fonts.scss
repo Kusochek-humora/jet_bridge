@@ -8,6 +8,12 @@
     font-weight: $weight;
     font-style: $style;
     font-display: swap;
+    // В Involve win-метрики (1060/270) не совпадают с hhea (800/200), флаг USE_TYPO_METRICS не выставлен.
+    // Chrome/Edge на Windows берут win — буквы в строке сидят не там, где в Figma.
+    // Фиксируем hhea-значения для всех браузеров → вертикальное положение как в макете.
+    ascent-override: 80%;
+    descent-override: 20%;
+    line-gap-override: 33%; // как lineGap в шрифте (330) — line-height: normal остаётся прежним
   }
 }
 

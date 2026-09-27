@@ -1,4 +1,189 @@
-@use '@/styles/abstracts' as *;
+@use "@/styles/abstracts" as *;
+
+// Слои снизу вверх (как в Figma):
+// 1. фото (background .hero)
+// 2. Rectangle 6 — синяя тень сверху  (.hero::before, нижний слой)
+// 3. image 7    — белый переход снизу (.hero::before, верхний слой)
+// 4. Ellipse 128 — синее пятно под текстом (.hero::after)
+// 5. контент (.hero__container)
 
 .hero {
+    position: relative;
+    width: 100%;
+    // высота = отступы + контент (172 + 425 + 108 = 705 в макете)
+    min-height: 705px;
+    padding: 172px 0 108px; // сверху: fixed-шапка (~112) + 60
+    overflow: hidden; // эллипс выходит за левый край — без этого появится горизонтальный скролл
+    background: url("@/assets/img/hero__bg.webp") center / cover no-repeat;
+
+    margin-bottom: 60px;
+    @include media("lg") {
+        min-height: auto;
+        padding: 150px 0 90px;
+    }
+    @include media("md") {
+        padding: 130px 0 100px; // снизу = длина белого перехода, кнопки остаются над ним
+        background-position: 65% center; // держим нос самолёта в кадре
+    }
+    @include media("sm") {
+        padding: 120px 0 100px;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+      // image 7 — белый переход снизу
+            linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, #fff 100%),
+            // Rectangle 6 — синяя тень сверху
+            linear-gradient(152.79deg, #6695ba -11.38%, #6695ba 15.3%, rgba(102, 149, 186, 0.1) 61.94%);
+        pointer-events: none;
+
+        // планшеты и мобильные (≤ 768): эллипса нет, вместо него три слоя ниже
+        @include media("md") {
+            background:
+                // белый переход: от низа 90px, точки по ease-кривой — без серой полосы.
+                // Нижний padding .hero (100px) больше — переход не заходит под кнопки
+                linear-gradient(
+                    0deg,
+                    #fff 0,
+                    rgba(255, 255, 255, 0.9) 15px,
+                    rgba(255, 255, 255, 0.65) 32px,
+                    rgba(255, 255, 255, 0.35) 52px,
+                    rgba(255, 255, 255, 0.12) 72px,
+                    rgba(255, 255, 255, 0) 90px
+                ),
+                // тёмно-синий слой под заголовком: под шапкой прозрачно (логотип не сливается),
+                // под текстом плотнее, к кнопкам сходит на нет
+                linear-gradient(
+                        180deg,
+                        rgba(3, 70, 124, 0) 0,
+                        rgba(3, 70, 124, 0.4) 110px,
+                        rgba(3, 70, 124, 0.35) 55%,
+                        rgba(3, 70, 124, 0) 85%
+                    ),
+                // Rectangle 6: тот же цвет #6695ba, угол 165° вместо 152.79°
+                linear-gradient(
+                        165deg,
+                        rgba(102, 149, 186, 0.95) 0%,
+                        rgba(102, 149, 186, 0.85) 30%,
+                        rgba(102, 149, 186, 0.45) 60%,
+                        rgba(102, 149, 186, 0.1) 85%,
+                        rgba(102, 149, 186, 0) 100%
+                    );
+        }
+    }
+
+    // Ellipse 128. В Figma: 1305×737, left -490, top -80.
+    // left считается от центра: на 1440 = -490, на широких экранах едет вместе с контейнером,
+    // на узких не уходит левее -490
+    &::after {
+        content: "";
+        position: absolute;
+        top: -20px; // в Figma -80, но там градиент повёрнут; без поворота пятно заходит за логотип
+        left: max(-490px, calc(50% - 1210px));
+        width: 1305px;
+        height: 737px;
+        background: radial-gradient(45.65% 45.65% at 50% 50%, #03467c 16.35%, rgba(5, 128, 226, 0) 100%);
+        pointer-events: none;
+
+        // мобильный: убран — на узком экране пятно ложится кляксой на фото, подложку даёт тень в ::before
+        @include media("md") {
+            display: none;
+        }
+    }
+
+    &__container {
+        position: relative;
+        z-index: 1;
+    }
+    &__content {
+        max-width: 630px;
+        width: 100%;
+    }
+    &__title {
+        font-weight: bold;
+
+        margin-bottom: 15px;
+        letter-spacing: -0.02em;
+        &-accent {
+            font-size: fluid(40px, 70px); // 70 от 768 и шире → 40 на 375
+            color: #f9bc14;
+        }
+        &-main {
+            font-size: fluid(26px, 48px); // 48 → 26
+            line-height: 120%; // 58 / 48 — в процентах, чтобы уменьшался вместе со шрифтом
+            text-transform: uppercase;
+            color: #fff;
+
+            // на мобильном ручной перенос из макета не нужен — строка переносится сама
+            @include media("md") {
+                br {
+                    display: none;
+                }
+            }
+        }
+    }
+    &__text {
+        color: $white;
+        font-size: fluid(16px, 20px); // 20 → 16
+        line-height: 120%;
+        max-width: 500px;
+        width: 100%;
+
+        margin-bottom: fluid(30px, 108px); // 108 от 768 и шире → 30 на 375
+    }
+
+    &__actions {
+        width: 100%;
+        display: flex;
+        gap: 12px 20px;
+
+        @include media("sm") {
+            flex-direction: column;
+        }
+    }
+    &__btn {
+        height: 60px; // как в макете; текст центрируется flex-ом .button-main
+        padding: 15px;
+        border-radius: 20px;
+        max-width: 305px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.secondary {
+            span {
+                display: inline-block;
+                padding-right: 43.5px;
+                position: relative;
+                &::after {
+                    position: absolute;
+                    content: "";
+                    right: 0;
+                    width: 33.5px;
+                    height: 31px;
+                    z-index: 1;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background-image: url(/src/assets/img/hero__plane.webp);
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                }
+            }
+        }
+        @include media("sm") {
+            max-width: none; // в колонку — на всю ширину
+            height: 46px;
+
+            border-radius: 14px;
+
+            span {
+                line-height: 19px;
+                font-size: 13px;
+            }
+        }
+    }
 }

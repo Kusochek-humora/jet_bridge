@@ -1,9 +1,13 @@
 @use "../abstracts" as *;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
-  // font-family: $font-primary;
+  font-family: $font-main;
   // color: $color-text;
   // background-color: $color-bg;
 }
@@ -32,10 +36,11 @@ body {
   @include visually-hidden;
 }
 .title {
-  font-size: 60px;
+  font-size: fluid(36px, 60px); // 60 от 768 и шире → 32 на 375
   color: $blue-title;
   font-weight: bold;
   letter-spacing: -0.011em;
+  text-transform: uppercase;
 }
 .text {
   font-size: 16px;
@@ -52,19 +57,46 @@ body {
 
   &.primary {
     background-color: $blue-title;
+    color: $white;
     span {
       color: $white;
     }
+
+    @include hover {
+      background-color: $blue-hover;
+    }
   }
   &.secondary {
+    position: relative;
+    isolation: isolate;
     background: $orange-gradient;
+    color: $white;
     span {
       color: $white;
+    }
+
+    // градиент нельзя анимировать напрямую — проявляем второй слой
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background: $orange-gradient-hover;
+      opacity: 0;
+      @include transition-simple;
+    }
+
+    @include hover {
+      &::before {
+        opacity: 1;
+      }
     }
   }
 
   span {
     font-size: 14px;
+    // line-height: 150%; // стиль «кнопки» в Figma
     text-align: center;
     text-transform: uppercase;
     @include transition-simple;
