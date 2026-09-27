@@ -1,0 +1,18 @@
+
+
+
+
+$breakpoints: (
+  "xl": 1280px,
+  "lg": 1024px,
+  "md": 768px,
+  "sm": 576px
+);
+// colors
+$white: #fff;
+$black: #000;
+$orange-gradient: linear-gradient(90deg, #f97014 0%, #f9bc14 100%);
+$orange-simple: #F9BC14;
+$blue-title: #03467c;
+
+$transition: 0.3s all;

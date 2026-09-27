@@ -1,0 +1,36 @@
+@use "sass:map";
+@use "variables" as *;
+
+// Desktop-first: стили пишутся под макет, ниже — переопределения
+// @include media('lg') { ... }  →  @media (max-width: 1024px)
+@mixin media($bp) {
+  @if not map.has-key($breakpoints, $bp) {
+    @error 'Unknown breakpoint `#{$bp}`. Available: #{map.keys($breakpoints)}';
+  }
+
+  @media (max-width: map.get($breakpoints, $bp)) {
+    @content;
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin transition-simple {
+  transition: 0.3s all;
+}

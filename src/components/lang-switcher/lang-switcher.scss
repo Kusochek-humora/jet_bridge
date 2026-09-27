@@ -1,0 +1,17 @@
+@use '@/styles/abstracts' as *;
+
+.lang-switcher {
+  display: flex;
+  gap: 8px;
+
+  &__btn {
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: color $transition, background-color $transition;
+
+    &.is-active {
+      // color: #fff;
+      // background-color: $color-primary;
+    }
+  }
+}
