@@ -112,7 +112,7 @@ $nav-duration: 0.45s;
 
     &__link {
       font-size: fluid(22px, 28px);
-      font-weight: 500; // у Montserrat подключены 400 / 500 / 700 — 600 браузер подделал бы
+      font-weight: 500; // у Montserrat подключено только 500 (Medium) — другое начертание браузер подделал бы
       color: $white;
       text-transform: uppercase;
       display: flex;
