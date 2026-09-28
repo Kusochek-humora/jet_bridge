@@ -1,3 +1,47 @@
 <section class="advantages" id="advantages">
-  <div class="container"></div>
+  <!-- Коллаж на CSS Grid. Порядок в разметке — смысловой (заголовок первым),
+       визуальное расположение задаётся в scss через grid-column / grid-row.
+       Водяной знак JB — фон секции в scss (декор, в разметку не выносим). -->
+  <div class="advantages__container container">
+    <h2 class="advantages__title title" data-i18n="advantages.title">
+      Наши ключевые преимущества — в каждом этапе логистики
+    </h2>
+
+    <img class="advantages__img advantages__img--1" src="/src/assets/img/advantages__img1.webp"
+      alt="" width="413" height="267" loading="lazy" />
+    <img class="advantages__img advantages__img--2" src="/src/assets/img/advantages__img2.webp"
+      alt="" width="454" height="294" loading="lazy" />
+
+    <!-- display: contents в scss — карточки становятся ячейками сетки, а список остаётся списком -->
+    <ul class="advantages__list">
+      <li class="advantages__card advantages__card--fast">
+        <h3 class="advantages__card-title" data-i18n="advantages.fast.title">Быстрая доставка за 5–7 дней</h3>
+        <p class="advantages__card-text" data-i18n="advantages.fast.text">
+          Авиаотправка из ОАЭ без задержек и перегрузок! Вы точно знаете, когда получите ваш груз
+        </p>
+      </li>
+      <li class="advantages__card advantages__card--digital">
+        <h3 class="advantages__card-title" data-i18n="advantages.digital.title">Цифровой сервис без звонков и ожиданий</h3>
+        <p class="advantages__card-text" data-i18n="advantages.digital.text">
+          Заявка, трекинг, уведомления — всё онлайн, в личном кабинете
+        </p>
+      </li>
+      <li class="advantages__card advantages__card--tariffs">
+        <h3 class="advantages__card-title" data-i18n="advantages.tariffs.title">Гибкие тарифы для B2C и B2B</h3>
+        <p class="advantages__card-text" data-i18n="advantages.tariffs.text">Лояльный подход к каждому клиенту!</p>
+      </li>
+      <li class="advantages__card advantages__card--warehouse">
+        <h3 class="advantages__card-title" data-i18n="advantages.warehouse.title">Собственный склад в Дубае</h3>
+        <p class="advantages__card-text" data-i18n="advantages.warehouse.text">
+          Принимаем, проверяем, фотографируем, упаковываем и объединяем грузы.
+        </p>
+      </li>
+      <li class="advantages__card advantages__card--customs">
+        <h3 class="advantages__card-title" data-i18n="advantages.customs.title">Полное таможенное оформление и ВЭД</h3>
+        <p class="advantages__card-text" data-i18n="advantages.customs.text">
+          Берём на себя документы, инвойсы, страхование
+        </p>
+      </li>
+    </ul>
+  </div>
 </section>

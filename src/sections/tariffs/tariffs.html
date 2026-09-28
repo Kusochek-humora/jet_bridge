@@ -1,3 +1,82 @@
 <section class="tariffs" id="tariffs">
-  <div class="container"></div>
+  <!-- Облака — декор, alt="". «back» лежат за карточками, «front» — поверх (как слои в Figma) -->
+  <div class="tariffs__clouds tariffs__clouds--back" aria-hidden="true">
+    <img class="tariffs__cloud tariffs__cloud--left-bottom" src="/src/assets/img/cloud-left-bottom.webp" alt="" width="507" height="466" loading="lazy" />
+    <img class="tariffs__cloud tariffs__cloud--right-bottom" src="/src/assets/img/cloud-right-bottom.webp" alt="" width="576" height="457" loading="lazy" />
+  </div>
+
+  <div class="tariffs__container container">
+    <h2 class="tariffs__title title" data-i18n="tariffs.title">Технологии, которые работают на вас</h2>
+
+    <ul class="tariffs__list">
+      <li class="tariffs__card tariffs__card--mini">
+        <h3 class="tariffs__card-title" data-i18n="tariffs.mini.title">Мини<br>посылка</h3>
+        <div class="tariffs__card-text">
+          <p class="tariffs__card-desc" data-i18n="tariffs.mini.desc">Для личных заказов, запчастей, косметики, документов и др.</p>
+
+          <ul class="tariffs__features">
+            <li class="tariffs__feature" data-i18n="tariffs.featureAll">Всё включено: склад, трекинг, таможня</li>
+            <li class="tariffs__feature" data-i18n="tariffs.featureMarket">Удобно для маркетплейсов</li>
+            <li class="tariffs__feature" data-i18n="tariffs.mini.weight">Вес: до 10 кг</li>
+          </ul>
+
+          <p class="tariffs__term" data-i18n="tariffs.price">Цена: от $8 за отправление</p>
+          <p class="tariffs__term" data-i18n="tariffs.term">Срок: 5–7 дней</p>
+        </div>
+
+        <icon name="tariffs-icon1" class="tariffs__card-icon"></icon>
+
+        <a href="#request-form" class="tariffs__card-btn button-main">
+          <span data-i18n="tariffs.btn">Оставить заявку</span>
+        </a>
+      </li>
+      <li class="tariffs__card tariffs__card--standard">
+        <h3 class="tariffs__card-title" data-i18n="tariffs.standard.title">Стандартная<br>доставка</h3>
+        <div class="tariffs__card-text">
+          <p class="tariffs__card-desc" data-i18n="tariffs.standard.desc">Для личных и бизнес-заказов, техники, косметики, документов, запчастей и др.</p>
+
+          <ul class="tariffs__features">
+            <li class="tariffs__feature" data-i18n="tariffs.featureAll">Всё включено: склад, трекинг, таможня</li>
+            <li class="tariffs__feature" data-i18n="tariffs.featureMarket">Удобно для маркетплейсов</li>
+            <li class="tariffs__feature" data-i18n="tariffs.standard.weight">Вес: до 50 кг</li>
+          </ul>
+
+          <p class="tariffs__term" data-i18n="tariffs.price">Цена: от $8 за отправление</p>
+          <p class="tariffs__term" data-i18n="tariffs.term">Срок: 5–7 дней</p>
+        </div>
+
+        <icon name="tariffs-icon2" class="tariffs__card-icon"></icon>
+
+        <a href="#request-form" class="tariffs__card-btn button-main">
+          <span data-i18n="tariffs.btn">Оставить заявку</span>
+        </a>
+      </li>
+      <li class="tariffs__card tariffs__card--large">
+        <h3 class="tariffs__card-title" data-i18n="tariffs.large.title">Крупный<br>груз / партия</h3>
+        <div class="tariffs__card-text">
+          <p class="tariffs__card-desc" data-i18n="tariffs.large.desc">Для личных и бизнес-заказов, техники, косметики, документов, запчастей и др.</p>
+
+          <ul class="tariffs__features">
+            <li class="tariffs__feature" data-i18n="tariffs.featureAll">Всё включено: склад, трекинг, таможня</li>
+            <li class="tariffs__feature" data-i18n="tariffs.featureMarket">Удобно для маркетплейсов</li>
+            <li class="tariffs__feature" data-i18n="tariffs.large.weight">Вес: от 100 кг</li>
+          </ul>
+
+          <p class="tariffs__term" data-i18n="tariffs.price">Цена: от $8 за отправление</p>
+          <p class="tariffs__term" data-i18n="tariffs.term">Срок: 5–7 дней</p>
+        </div>
+
+        <icon name="tariffs-icon3" class="tariffs__card-icon"></icon>
+
+        <a href="#request-form" class="tariffs__card-btn button-main">
+          <span data-i18n="tariffs.btn">Оставить заявку</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="tariffs__clouds tariffs__clouds--front" aria-hidden="true">
+    <img class="tariffs__cloud tariffs__cloud--left-top" src="/src/assets/img/cloud-left-1.webp" alt="" width="188" height="481" loading="lazy" />
+    <img class="tariffs__cloud tariffs__cloud--right-top" src="/src/assets/img/cloud-right-top.webp" alt="" width="194" height="428" loading="lazy" />
+  </div>
 </section>

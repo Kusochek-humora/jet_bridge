@@ -1,3 +1,62 @@
 <section class="contacts" id="contacts">
-  <div class="container"></div>
+  <div class="contacts__container container">
+    <h2 class="contacts__title title" data-i18n="contacts.title">Контакты</h2>
+
+    <!-- 2ГИС: тот же iframe, что собирает их DGWidgetLoader.js, но без скрипта и document.write.
+         Размер задаёт .contacts__map (виджет сам по себе фиксированный 640×600) -->
+    <div class="contacts__map">
+      <iframe
+        src="https://widgets.2gis.com/widget?type=firmsonmap&amp;options=%7B%22pos%22%3A%7B%22lat%22%3A43.23925507349192%2C%22lon%22%3A76.91795468330385%2C%22zoom%22%3A18%7D%2C%22opt%22%3A%7B%22city%22%3A%22almaty%22%7D%2C%22org%22%3A%229429940000796245%22%7D"
+        title="Карта: офис JetBridge"
+        data-i18n-title="contacts.map"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+
+    <!-- address — контактная информация целиком (адрес, телефон, почта, соцсети).
+         Заголовки h1–h6 внутри address запрещены — подписи абзацами -->
+    <address class="contacts__info">
+      <div class="contacts__col">
+        <div class="contacts__item">
+          <p class="contacts__label" data-i18n="contacts.address">Адрес офиса</p>
+          <p class="contacts__value" data-i18n="contacts.addressValue">Дубай, ОАЭ</p>
+        </div>
+        <div class="contacts__item">
+          <p class="contacts__label" data-i18n="contacts.phone">Телефон</p>
+          <a class="contacts__value contacts__link" href="tel:+77777777777">+7 777 777 77 77</a>
+        </div>
+      </div>
+
+      <div class="contacts__col contacts__col--right">
+        <div class="contacts__item">
+          <p class="contacts__label" data-i18n="contacts.email">Email</p>
+          <a class="contacts__value contacts__link" href="mailto:info@mediapeace.com">info@mediapeace.com</a>
+        </div>
+        <div class="contacts__item">
+          <p class="contacts__label" data-i18n="contacts.socials">Мессенджеры и социальные сети</p>
+          <ul class="contacts__socials">
+            <li>
+              <!-- TODO: ссылка на профиль -->
+              <a class="contacts__social" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <icon name="linkedin"></icon>
+              </a>
+            </li>
+            <li>
+              <!-- TODO: ссылка на профиль -->
+              <a class="contacts__social" href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <icon name="instagram"></icon>
+              </a>
+            </li>
+            <li>
+              <!-- TODO: ссылка на профиль -->
+              <a class="contacts__social" href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <icon name="tiktok"></icon>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </address>
+  </div>
 </section>

@@ -1,3 +1,28 @@
 <section class="categories" id="categories">
-  <div class="container"></div>
+  <div class="categories__container container">
+    <h2 class="categories__title title" data-i18n="categories.title">Что мы доставляем</h2>
+
+    <img class="categories__img" src="/src/assets/img/categories__img.webp" alt="Погрузка авиагруза в самолёт"
+      data-i18n-alt="categories.imgAlt" width="1280" height="512" loading="lazy" />
+
+    <!-- категория (h3, «таблетка») → что в неё входит (p) -->
+    <ul class="categories__list">
+      <li class="categories__card categories__card--electronics">
+        <h3 class="categories__tag" data-i18n="categories.electronics.tag">Электроника и техника</h3>
+        <p class="categories__text" data-i18n="categories.electronics.text">Смартфоны, ноутбуки, аксессуары</p>
+      </li>
+      <li class="categories__card categories__card--parts">
+        <h3 class="categories__tag" data-i18n="categories.parts.tag">Запчасти и комплектующие</h3>
+        <p class="categories__text" data-i18n="categories.parts.text">Автозапчасти, шины, техмодули</p>
+      </li>
+      <li class="categories__card categories__card--clothes">
+        <h3 class="categories__tag" data-i18n="categories.clothes.tag">Одежда, обувь и косметика</h3>
+        <p class="categories__text" data-i18n="categories.clothes.text">Одежда, обувь, текстиль, бьюти-продукты</p>
+      </li>
+      <li class="categories__card categories__card--medical">
+        <h3 class="categories__tag" data-i18n="categories.medical.tag">Медицинские и автотовары</h3>
+        <p class="categories__text" data-i18n="categories.medical.text">Медприборы, автоаксессуары</p>
+      </li>
+    </ul>
+  </div>
 </section>

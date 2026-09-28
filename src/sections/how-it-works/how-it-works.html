@@ -1,3 +1,48 @@
 <section class="how-it-works" id="how-it-works">
-  <div class="container"></div>
+  <!-- Сетка 4 × 305 (gap 20). Ряд 1: текст (2 колонки) + «Заявка онлайн»,
+       ряд 2: карточки в колонках 1, 2, 4. Пустые ячейки заполняет фон-картинка (absolute). -->
+  <div class="how-it-works__container container">
+    <img class="how-it-works__bg" src="/src/assets/img/how__bg.webp" alt="" width="835" height="582" loading="lazy" />
+
+    <div class="how-it-works__info">
+      <h2 class="how-it-works__title title" data-i18n="howItWorks.title">Как работает JetBridge</h2>
+      <p class="how-it-works__text" data-i18n="howItWorks.text">От заявки до получения — весь процесс под контролем. Мы берём на себя всю логистику, склад, документы и доставку. Вам нужно только отправить груз — остальное сделаем мы.</p>
+      <a href="#request-form" class="how-it-works__btn button-main secondary">
+        <span data-i18n="howItWorks.btn">Связаться с нами</span>
+        <icon name="arrow-up-right" class="how-it-works__btn-arrow"></icon>
+      </a>
+    </div>
+
+    <!-- этапы по порядку — нумерованный список; display: contents — пункты становятся ячейками сетки -->
+    <ol class="how-it-works__steps">
+      <li class="how-it-works__card how-it-works__card--online">
+        <div class="how-it-works__card-head">
+          <h3 class="how-it-works__card-title" data-i18n="howItWorks.online.title">Заявка онлайн</h3>
+          <icon name="how-online" class="how-it-works__card-icon"></icon>
+        </div>
+        <p class="how-it-works__card-text" data-i18n="howItWorks.online.text">Вы заполняете форму или пишете в WhatsApp — быстро и без звонков</p>
+      </li>
+      <li class="how-it-works__card how-it-works__card--receive">
+        <div class="how-it-works__card-head">
+          <h3 class="how-it-works__card-title" data-i18n="howItWorks.receive.title">Приёмка<br>в Дубае</h3>
+          <icon name="how-receive" class="how-it-works__card-icon"></icon>
+        </div>
+        <p class="how-it-works__card-text" data-i18n="howItWorks.receive.text">Груз поступает на наш склад, проверяется, фотографируется и готовится к отправке</p>
+      </li>
+      <li class="how-it-works__card how-it-works__card--send">
+        <div class="how-it-works__card-head">
+          <h3 class="how-it-works__card-title" data-i18n="howItWorks.send.title">Отправка<br>авиадоставкой</h3>
+          <icon name="how-send" class="how-it-works__card-icon"></icon>
+        </div>
+        <p class="how-it-works__card-text" data-i18n="howItWorks.send.text">Мы отправляем ваш груз ближайшим рейсом в РК. Включено: трекинг и экспортное оформление</p>
+      </li>
+      <li class="how-it-works__card how-it-works__card--delivery">
+        <div class="how-it-works__card-head">
+          <h3 class="how-it-works__card-title" data-i18n="howItWorks.delivery.title">Доставка<br>и получение</h3>
+          <icon name="how-delivery" class="how-it-works__card-icon"></icon>
+        </div>
+        <p class="how-it-works__card-text" data-i18n="howItWorks.delivery.text">Оформляем таможню, сообщаем статус и передаём груз получателю в Алмате. Возможна доставка по всей территории Казахстана.</p>
+      </li>
+    </ol>
+  </div>
 </section>

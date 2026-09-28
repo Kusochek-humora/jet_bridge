@@ -1,4 +1,142 @@
-@use '@/styles/abstracts' as *;
+@use "@/styles/abstracts" as *;
+
+// Figma: заголовок → фото 1280×512 → 4 карточки 399×293, заходят на фото снизу на 110px,
+// каждая следующая лежит поверх предыдущей. left в Figma: 0 / 297.87 / 580.99 / 878.86 —
+// нахлёст ~106px, ряд ровно в контейнере: 4 × 399 − 3 × 106 ≈ 1280.
+// Наклон — матрицы transform из Figma как есть (поворот + лёгкий перекос).
+
+$overlap: 106px;
 
 .categories {
+    margin-bottom: 80px;
+
+    &__title {
+        margin-bottom: 20px;
+    }
+
+    &__img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+
+        @include media("md") {
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+        }
+    }
+
+    // ---------- карточки ----------
+    &__list {
+        position: relative; // поверх фото
+        display: flex;
+        margin-top: -110px; // заходят на фото снизу
+
+        @include media("lg") {
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 20px; // без нахлёста — фото видно целиком
+        }
+        @include media("sm") {
+            flex-direction: column;
+        }
+    }
+
+    &__card {
+        position: relative;
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; // категория сверху, состав — внизу
+        align-items: flex-start;
+        gap: 20px;
+        min-height: 293px; // 292.6 в Figma
+        padding: 30px 18px;
+        border-radius: 20px;
+        box-shadow: 0 4px 30px rgba(63, 95, 45, 0.25); // стиль «1» в Figma
+        color: $white;
+
+        & + & {
+            margin-left: -$overlap;
+        }
+
+        // каждая следующая поверх предыдущей. z-index задан явно: transform (наклон)
+        // иначе поднимает карточку над соседями без transform и ломает порядок
+        &--electronics {
+            z-index: 1;
+            // полутоновый узор (прозрачный png → webp) поверх градиента
+            background:
+                url("@/assets/img/categories__card-bg.webp") center / cover no-repeat,
+                $orange-gradient;
+            transform: matrix(1, 0.03, -0.02, 1, 0, 0); // Figma, top 482
+        }
+        &--parts {
+            z-index: 2;
+            margin-top: 4px; // top 486
+            background-color: $white;
+            transform: matrix(1, -0.01, 0.01, 1, 0, 0);
+            color: $blue-title;
+        }
+        &--clothes {
+            z-index: 3;
+            margin-top: 4px; // top 486
+            // тот же полутоновый узор, на синем еле заметен — как в макете
+            background:
+                url("@/assets/img/categories__card-bg.webp") center / cover no-repeat,
+                $blue-title;
+            transform: matrix(1, 0.03, -0.02, 1, 0, 0);
+        }
+        &--medical {
+            z-index: 4;
+            margin-top: 8px; // top 490
+            background: $orange-gradient;
+            transform: matrix(1, -0.01, 0.01, 1, 0, 0);
+        }
+
+        // без нахлёста и наклона: 2 × 2, на телефоне колонкой
+        @include media("lg") {
+            flex: 1 1 calc(50% - 8px);
+            min-height: 220px;
+            margin-top: 0;
+            transform: none;
+
+            & + & {
+                margin-left: 0;
+            }
+        }
+        @include media("sm") {
+            min-height: 180px;
+            padding: 24px 18px;
+        }
+    }
+
+    // «таблетка» с названием категории
+    &__tag {
+        max-width: calc(100% - #{$overlap}); // не заходит под следующую карточку
+        padding: 10px 15px;
+        border: 1px solid currentColor;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.2;
+
+        @include media("lg") {
+            max-width: none;
+        }
+    }
+
+    // Figma: карточки — Involve Bold, капс
+    &__text {
+        // текст не заходит под следующую карточку (нахлёст справа)
+        max-width: calc(100% - #{$overlap});
+        font-size: fluid(16px, 20px);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+
+        @include media("lg") {
+            max-width: none;
+        }
+    }
 }

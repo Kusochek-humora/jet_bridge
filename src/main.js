@@ -13,10 +13,10 @@ import './sections/advantages/advantages';
 import './sections/tariffs/tariffs';
 import './sections/how-it-works/how-it-works';
 import './sections/categories/categories';
-import './sections/reviews/reviews';
-import './sections/request-form/request-form';
+import { initReviews } from './sections/reviews/reviews';
+import { initRequestForm } from './sections/request-form/request-form';
 import './sections/contacts/contacts';
-import './sections/footer/footer';
+import { initFooter } from './sections/footer/footer';
 
 await initI18n();
 
@@ -24,3 +24,6 @@ initLangSwitcher();
 initNavMenu();
 initBurgerMenu();
 initHeader();
+initReviews();
+initRequestForm();
+initFooter();

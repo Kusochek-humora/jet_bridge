@@ -1,4 +1,256 @@
-@use '@/styles/abstracts' as *;
+@use "@/styles/abstracts" as *;
+
+// Секция 1440×835 (Figma «тарифы»), контент 1280, карточки 3 × 413×621, между ними 20.
+//
+// Облака (position: absolute от .tariffs, нужен position: relative + overflow: hidden):
+//   --left-bottom   507×466  left: 0,  bottom: 0          (за карточками)
+//   --right-bottom  576×457  right: 0, bottom: ~9         (за карточками)
+//   --left-top      188×481  left: 0,  top: 261           (поверх карточек)
+//   --right-top     194×428  right: 0, top: 273           (поверх карточек)
+//
+// Фон карточек: одно фото card__bg.webp + цветной градиент поверх:
+//   background: <градиент>, url("@/assets/img/card__bg.webp") center / cover;
+//   --mini / --large — оранжевый, --standard — синий (значения градиентов взять из Figma).
+//
+// Иконки (<icon>) красятся через color — у svg fill="currentColor".
 
 .tariffs {
+    position: relative; // точка отсчёта для облаков
+    padding-bottom: 124px; // 835 - 711: место под нижними облаками, как в макете
+    min-height: 835px; // высота секции в макете
+    overflow-x: clip; // облака не дают горизонтальный скролл на узких экранах
+
+    @include media("lg") {
+        min-height: 0; // карточки колонкой — высота по содержимому
+        padding-bottom: 80px;
+    }
+
+    // слои снизу вверх: нижние облака (0) → карточки (1) → боковые облака (2)
+    &__clouds {
+        position: absolute;
+        inset: 0;
+        pointer-events: none; // облака не мешают кликать по карточкам
+    }
+    &__clouds--back {
+        z-index: 0;
+    }
+    &__clouds--front {
+        z-index: 2;
+
+        // на планшете / телефоне карточки идут колонкой — боковые облака их закрывали бы
+        @include media("lg") {
+            display: none;
+        }
+    }
+
+    &__cloud {
+        position: absolute;
+        height: auto;
+    }
+    // Figma: 507×466, left 0, bottom 0
+    &__cloud--left-bottom {
+        left: 0;
+        bottom: 0;
+        width: 507px;
+
+        @include media("lg") {
+            width: 50%;
+        }
+    }
+    // Figma: 576×457, right 0, bottom 9
+    &__cloud--right-bottom {
+        right: 0;
+        bottom: 9px;
+        width: 576px;
+
+        @include media("lg") {
+            width: 55%;
+        }
+    }
+    // Figma: 188×481, left 0, top 261 — опущено до уровня иконок, чтобы не закрывать текст карточек
+    &__cloud--left-top {
+        left: 0;
+        top: 440px;
+        width: 188px;
+    }
+    // Figma: 194×428, right 0, top 273 — опущено до уровня иконок
+    &__cloud--right-top {
+        right: 0;
+        top: 460px;
+        width: 194px;
+    }
+
+    &__container {
+        position: relative;
+        z-index: 1; // между нижними и боковыми облаками
+    }
+
+    &__title {
+        margin-bottom: fluid(20px, 30px);
+    }
+
+    // десктоп: 3 в ряд · ≤ 1024: 2 + 1 (третья по центру) · ≤ 768: колонка
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+
+        @include media("lg") {
+            justify-content: center;
+        }
+    }
+
+    &__card {
+        padding: 50px 30px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border-radius: 30px;
+        flex: 1 1 calc(33% - 20px);
+
+        @include media("lg") {
+            flex: 0 1 calc(50% - 10px);
+            padding: 40px 24px;
+        }
+        @include media("md") {
+            flex-basis: 100%;
+            max-width: 460px; // на планшете в колонку карточка не растягивается на весь экран
+        }
+        @include media("sm") {
+            padding: 32px 20px;
+            border-radius: 20px;
+        }
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    &__card--large,
+    &__card--mini {
+        /* Frame 37 */
+
+        background:
+            linear-gradient(179.96deg, rgba(249, 112, 20, 0.1) 0.03%, #f99614 81.03%),
+            url(/src/assets/img/card__bg2.webp) center / cover no-repeat,
+            #f9bc14;
+    }
+
+    &__card--mini {
+        /* Frame 36 */
+    }
+    &__card--standard {
+        background:
+            linear-gradient(179.96deg, rgba(3, 70, 124, 0.1) 0.03%, #03467c 81.03%),
+            url(/src/assets/img/card__bg.webp) center / cover no-repeat,
+            #f9bc14;
+    }
+    &__card--large {
+    }
+
+    &__card-title {
+        font-size: fluid(24px, 32px);
+
+        text-align: center;
+        color: $white;
+
+        margin-bottom: 16px;
+    }
+
+    // обёртка: шрифт, line-height и цвет наследуют строки внутри
+    &__card-text {
+        font-size: fluid(14px, 16px);
+        line-height: 120%;
+
+        color: $white;
+
+        margin-bottom: 20px;
+    }
+
+    // Figma: переносы внутри строки — line-height 120%,
+    // между строками (Enter) — Paragraph spacing ~11px, между группами — пустая строка (~41px)
+    &__card-desc {
+        margin: 0 0 fluid(24px, 41px);
+    }
+
+    &__features {
+        margin: 0 0 fluid(24px, 41px);
+        padding: 0;
+        list-style: none;
+    }
+
+    &__feature {
+        &::before {
+            content: "•";
+            margin-right: 6px;
+        }
+
+        & + & {
+            margin-top: 11px;
+        }
+    }
+
+    &__term {
+        margin: 0;
+
+        & + & {
+            margin-top: 11px;
+        }
+    }
+
+    &__card-icon {
+        color: $white; // svg с fill="currentColor" берёт цвет отсюда
+
+        margin-bottom: 20px;
+
+        @include media("sm") {
+            width: 90px; // svg 116×116, viewBox сохраняет пропорции
+            height: 90px;
+        }
+    }
+    /* Frame 31 */
+
+    /* Auto layout */
+
+    &__card-btn {
+        padding: 8px 44px;
+        background-color: $white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 49px;
+        height: auto;
+
+        border: 1px solid $blue-title;
+        border-radius: 10px;
+        max-width: 288px;
+        width: 100%;
+
+        span {
+            font-size: 14px;
+            color: $blue-title;
+            line-height: 150%;
+            text-align: center;
+        }
+
+        // инверсия: синий фон, белый текст (плавность — transition у .button-main)
+        @include hover {
+            background-color: $blue-title;
+
+            span {
+                color: $white;
+            }
+        }
+        // на синей карточке синий hover сливается с фоном — там оранжевый.
+        // Сплошной цвет, а не градиент: background-color анимируется плавно
+        .tariffs__card--standard & {
+            @include hover {
+                background-color: #f99614;
+                border-color: #f99614;
+            }
+        }
+    }
 }

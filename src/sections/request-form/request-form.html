@@ -1,3 +1,37 @@
 <section class="request-form" id="request-form">
-  <div class="container"></div>
+  <div class="request-form__container container">
+    <h2 class="request-form__title title" data-i18n="requestForm.title">Оставить заявку</h2>
+    <p class="request-form__subtitle" data-i18n="requestForm.subtitle">Заполните форму — и мы свяжемся с вами в ближайшее время</p>
+
+    <!-- novalidate: проверка в request-form.js — свои сообщения на двух языках вместо браузерных -->
+    <form class="request-form__form" novalidate>
+        <div class="request-form__field">
+          <label class="visually-hidden" for="rf-name" data-i18n="requestForm.name">Имя</label>
+          <input class="request-form__input" id="rf-name" name="name" type="text" autocomplete="name"
+            placeholder="Имя" data-i18n-placeholder="requestForm.name"
+            aria-describedby="rf-name-error" required />
+          <span class="request-form__error" id="rf-name-error" aria-live="polite"></span>
+        </div>
+        <div class="request-form__field">
+          <label class="visually-hidden" for="rf-phone" data-i18n="requestForm.phone">Ваш телефон</label>
+          <input class="request-form__input" id="rf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"
+            placeholder="Ваш телефон" data-i18n-placeholder="requestForm.phone"
+            aria-describedby="rf-phone-error" required />
+          <span class="request-form__error" id="rf-phone-error" aria-live="polite"></span>
+        </div>
+        <div class="request-form__field">
+          <label class="visually-hidden" for="rf-weight" data-i18n="requestForm.weight">Вес груза (кг)</label>
+          <input class="request-form__input" id="rf-weight" name="weight" type="text" inputmode="decimal"
+            placeholder="Вес груза (кг)" data-i18n-placeholder="requestForm.weight"
+            aria-describedby="rf-weight-error" required />
+          <span class="request-form__error" id="rf-weight-error" aria-live="polite"></span>
+        </div>
+
+        <button class="request-form__btn button-main primary" type="submit">
+          <span data-i18n="requestForm.btn">Отправить заявку</span>
+        </button>
+        <p class="request-form__consent" data-i18n="requestForm.consent">Нажимая на «Отправить заявку», соглашаюсь с условиями <a href="/docs/privacy-policy.pdf" download="JetBridge-privacy-policy.pdf">Политики обработки персональных данных</a></p>
+    </form>
+  </div>
+  <include src="src/components/success-modal/success-modal.html"></include>
 </section>

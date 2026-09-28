@@ -1,4 +1,183 @@
-@use '@/styles/abstracts' as *;
+@use "@/styles/abstracts" as *;
+
+// Figma: карточки 305×279, между ними 20, стрелки 40×40 по краям.
+// Лента выходит за правый край контейнера (5-я карточка обрезана краем экрана).
+// ≤ 1024: стрелки в одну строку с заголовком — контейнер становится сеткой,
+// а у .reviews__slider display: contents (его дети — ячейки этой сетки).
 
 .reviews {
+    // 80 до следующей секции по макету − 30 запаса под тень снизу ленты
+    margin-bottom: 50px;
+    overflow-x: clip; // лента выходит за контейнер, но не даёт горизонтальный скролл
+
+    &__container {
+        @include media("lg") {
+            display: grid;
+            // minmax(0, 1fr): иначе колонка не уже содержимого — лента слайдов растягивает её
+            // до ~1900px, Swiper считает, что всё влезло, и блокирует стрелки
+            grid-template-columns: minmax(0, 1fr) auto auto; // заголовок · ← · →
+            align-items: center;
+            column-gap: 10px;
+            row-gap: fluid(14px, 30px);
+        }
+    }
+
+    &__title {
+        // 40 по макету − 10 запаса под тень сверху ленты
+        margin-bottom: fluid(14px, 30px);
+
+        @include media("lg") {
+            grid-column: 1;
+            grid-row: 1;
+            margin-bottom: 0;
+        }
+    }
+
+    &__slider {
+        position: relative;
+
+        @include media("lg") {
+            display: contents;
+        }
+    }
+
+    // overflow: visible — карточки видны и за правым краем контейнера, как в макете
+    &__swiper {
+        overflow: visible;
+        padding-block: 10px 30px; // место под тень карточек (иначе обрежется)
+
+        @include media("lg") {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            width: 100%;
+            min-width: 0;
+        }
+    }
+
+    &__list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__slide {
+        width: 305px;
+        height: auto; // все карточки ряда одной высоты (по самой высокой)
+
+        @include media("sm") {
+            width: min(305px, 85vw);
+        }
+    }
+
+    &__card {
+        height: 100%;
+        min-height: 279px;
+        margin: 0;
+        padding: 20px;
+        border-radius: 20px;
+        background-color: $white;
+        box-shadow: -4px 4px 30px rgba(0, 0, 0, 0.25); // Figma, Frame 43
+
+        // на узком экране крупная тень выглядит тяжело — мягче и короче
+        @include media("sm") {
+            box-shadow: -2px 4px 16px rgba(0, 0, 0, 0.12);
+        }
+    }
+
+    // аватар + имя, под ними линия
+    &__author {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding-bottom: 24px;
+        margin-bottom: 24px;
+        border-bottom: 1px solid rgba($black, 0.1);
+    }
+
+    &__avatar {
+        flex-shrink: 0;
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &__name {
+        display: flex;
+        flex-direction: column;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        color: $black;
+
+        cite {
+            font-style: normal;
+        }
+    }
+
+    &__text {
+        margin: 0;
+        font-size: fluid(14px, 16px);
+        line-height: 1.2;
+    }
+
+    // ---------- стрелки ----------
+    &__nav {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: $blue-title;
+        color: $white;
+        transform: translateY(-50%);
+        transition: background-color 0.3s ease, opacity 0.3s ease;
+
+        @include hover {
+            background-color: $blue-hover;
+        }
+
+        // Swiper ставит класс, когда листать дальше некуда
+        &.is-disabled {
+            background-color: #b5b5b5;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        &--prev {
+            left: -20px;
+        }
+
+        &--next {
+            right: -20px;
+
+            .icon {
+                transform: scaleX(-1); // та же иконка, развёрнутая вправо
+            }
+        }
+
+        // ≤ 1024: в строке с заголовком, справа
+        @include media("lg") {
+            position: static;
+            grid-row: 1;
+            transform: none;
+
+            &--prev {
+                grid-column: 2;
+            }
+            &--next {
+                grid-column: 3;
+            }
+        }
+        @include media("sm") {
+            width: 36px;
+            height: 36px;
+        }
+    }
 }

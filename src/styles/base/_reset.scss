@@ -30,8 +30,8 @@ dd {
   margin: 0;
 }
 
-ul[class],
-ol[class] {
+// :where() — нулевая специфичность: reset не перебивает стили компонентов (.tariffs__features и т.п.)
+:where(ul[class], ol[class]) {
   margin: 0;
   padding: 0;
   list-style: none;

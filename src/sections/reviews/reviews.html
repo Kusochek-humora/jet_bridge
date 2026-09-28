@@ -1,3 +1,105 @@
 <section class="reviews" id="reviews">
-  <div class="container"></div>
+  <div class="reviews__container container">
+    <h2 class="reviews__title title" data-i18n="reviews.title">Отзывы</h2>
+
+    <div class="reviews__slider">
+      <!-- Swiper: .swiper > .swiper-wrapper > .swiper-slide (инициализация в reviews.js) -->
+      <div class="swiper reviews__swiper">
+        <!-- TODO: в макете 2 отзыва, повторённые 3 раза, — заменить на реальные -->
+        <ul class="swiper-wrapper reviews__list">
+          <li class="swiper-slide reviews__slide">
+            <figure class="reviews__card">
+              <figcaption class="reviews__author">
+                <img class="reviews__avatar" src="/src/assets/img/reviews__avatar-1.webp" alt="" width="58" height="58" loading="lazy" />
+                <p class="reviews__name">
+                  <cite data-i18n="reviews.arman.name">Арман С.</cite>
+                  <span data-i18n="reviews.arman.info">Алматы</span>
+                </p>
+              </figcaption>
+              <blockquote class="reviews__text">
+                <p data-i18n="reviews.arman.text">Привезли ноутбук из Дубая за 6 дней, всё чётко, с фото, трекингом и оповещениями. Очень доволен!</p>
+              </blockquote>
+            </figure>
+          </li>
+          <li class="swiper-slide reviews__slide">
+            <figure class="reviews__card">
+              <figcaption class="reviews__author">
+                <img class="reviews__avatar" src="/src/assets/img/reviews__avatar-2.webp" alt="" width="58" height="58" loading="lazy" />
+                <p class="reviews__name">
+                  <cite data-i18n="reviews.asel.name">Асель Б.,</cite>
+                  <span data-i18n="reviews.asel.info">директор ТОО</span>
+                </p>
+              </figcaption>
+              <blockquote class="reviews__text">
+                <p data-i18n="reviews.asel.text">Работаем по ВЭД с компанией больше года. Надёжные партнёры по логистике, всё по договору. Очень ценим стабильность и прозрачность в этом партнёрстве.</p>
+              </blockquote>
+            </figure>
+          </li>
+          <li class="swiper-slide reviews__slide">
+            <figure class="reviews__card">
+              <figcaption class="reviews__author">
+                <img class="reviews__avatar" src="/src/assets/img/reviews__avatar-1.webp" alt="" width="58" height="58" loading="lazy" />
+                <p class="reviews__name">
+                  <cite data-i18n="reviews.arman.name">Арман С.</cite>
+                  <span data-i18n="reviews.arman.info">Алматы</span>
+                </p>
+              </figcaption>
+              <blockquote class="reviews__text">
+                <p data-i18n="reviews.arman.text">Привезли ноутбук из Дубая за 6 дней, всё чётко, с фото, трекингом и оповещениями. Очень доволен!</p>
+              </blockquote>
+            </figure>
+          </li>
+          <li class="swiper-slide reviews__slide">
+            <figure class="reviews__card">
+              <figcaption class="reviews__author">
+                <img class="reviews__avatar" src="/src/assets/img/reviews__avatar-2.webp" alt="" width="58" height="58" loading="lazy" />
+                <p class="reviews__name">
+                  <cite data-i18n="reviews.asel.name">Асель Б.,</cite>
+                  <span data-i18n="reviews.asel.info">директор ТОО</span>
+                </p>
+              </figcaption>
+              <blockquote class="reviews__text">
+                <p data-i18n="reviews.asel.text">Работаем по ВЭД с компанией больше года. Надёжные партнёры по логистике, всё по договору. Очень ценим стабильность и прозрачность в этом партнёрстве.</p>
+              </blockquote>
+            </figure>
+          </li>
+          <li class="swiper-slide reviews__slide">
+            <figure class="reviews__card">
+              <figcaption class="reviews__author">
+                <img class="reviews__avatar" src="/src/assets/img/reviews__avatar-1.webp" alt="" width="58" height="58" loading="lazy" />
+                <p class="reviews__name">
+                  <cite data-i18n="reviews.arman.name">Арман С.</cite>
+                  <span data-i18n="reviews.arman.info">Алматы</span>
+                </p>
+              </figcaption>
+              <blockquote class="reviews__text">
+                <p data-i18n="reviews.arman.text">Привезли ноутбук из Дубая за 6 дней, всё чётко, с фото, трекингом и оповещениями. Очень доволен!</p>
+              </blockquote>
+            </figure>
+          </li>
+          <li class="swiper-slide reviews__slide">
+            <figure class="reviews__card">
+              <figcaption class="reviews__author">
+                <img class="reviews__avatar" src="/src/assets/img/reviews__avatar-2.webp" alt="" width="58" height="58" loading="lazy" />
+                <p class="reviews__name">
+                  <cite data-i18n="reviews.asel.name">Асель Б.,</cite>
+                  <span data-i18n="reviews.asel.info">директор ТОО</span>
+                </p>
+              </figcaption>
+              <blockquote class="reviews__text">
+                <p data-i18n="reviews.asel.text">Работаем по ВЭД с компанией больше года. Надёжные партнёры по логистике, всё по договору. Очень ценим стабильность и прозрачность в этом партнёрстве.</p>
+              </blockquote>
+            </figure>
+          </li>
+        </ul>
+      </div>
+
+      <button class="reviews__nav reviews__nav--prev" type="button" aria-label="Предыдущий отзыв" data-i18n-aria-label="reviews.prev">
+        <icon name="chevron-left"></icon>
+      </button>
+      <button class="reviews__nav reviews__nav--next" type="button" aria-label="Следующий отзыв" data-i18n-aria-label="reviews.next">
+        <icon name="chevron-left"></icon>
+      </button>
+    </div>
+  </div>
 </section>
