@@ -136,7 +136,7 @@
     "phone": "Ваш телефон",
     "weight": "Вес груза (кг)",
     "btn": "Отправить заявку",
-    "consent": "Нажимая на «Отправить заявку», соглашаюсь с условиями <a href=\"/docs/privacy-policy.pdf\" download=\"JetBridge-privacy-policy.pdf\">Политики обработки персональных данных</a>",
+    "consent": "Нажимая на «Отправить заявку», соглашаюсь с условиями <a href=\"files/privacy-policy.pdf\" download=\"JetBridge-privacy-policy.pdf\">Политики обработки персональных данных</a>",
     "errors": {
       "name": "Введите имя — минимум 2 буквы",
       "nameChars": "Имя — только буквы, без цифр и символов",

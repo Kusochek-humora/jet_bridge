@@ -136,7 +136,7 @@
     "phone": "Телефоныңыз",
     "weight": "Жүк салмағы (кг)",
     "btn": "Өтінім жіберу",
-    "consent": "«Өтінім жіберу» түймесін басу арқылы <a href=\"/docs/privacy-policy.pdf\" download=\"JetBridge-privacy-policy.pdf\">Дербес деректерді өңдеу саясатының</a> шарттарымен келісемін",
+    "consent": "«Өтінім жіберу» түймесін басу арқылы <a href=\"files/privacy-policy.pdf\" download=\"JetBridge-privacy-policy.pdf\">Дербес деректерді өңдеу саясатының</a> шарттарымен келісемін",
     "errors": {
       "name": "Атыңызды енгізіңіз — кемінде 2 әріп",
       "nameChars": "Аты — тек әріптер, цифрсыз және таңбаларсыз",
